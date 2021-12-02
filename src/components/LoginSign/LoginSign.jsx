@@ -23,13 +23,28 @@ const LoginSign = (props) => {
         event.preventDefault();
         const submitValue=submitBtn.current.value;
         if(submitValue==="SignIn"){
-
+            await signInWithEmailAndPassword(auth, email, password)
+            .then(()=>{
+                console.log("SignIn success");
+            }
+            ).catch((error)=>{
+                console.log(error.message);
+                alert(error.message);
+            }
+            );
         }else if(submitValue==="Create Account"){
-            await createUserWithEmailAndPassword(auth, email, password);
-            console.log("success");
-            
+            await createUserWithEmailAndPassword(auth, email, password)
+            .then(async()=>{
+                await signInWithEmailAndPassword(auth, email, password);
+            }
+            ).catch((error)=>{
+                console.log(error.message);
+                alert(error.message);
+            }
+            );  
         }
     }
+
     return(
         <div className="container">
         <form onSubmit={onSubmit}>
