@@ -1,11 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { auth } from '../../fbase';
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth';
+import { useNavigate } from 'react-router';  
+import { createUserWithEmailAndPassword,
+         signInWithEmailAndPassword,
+         GoogleAuthProvider,
+         signInWithPopup,
+         GithubAuthProvider} from 'firebase/auth';
 
-const LoginSign = (props) => {
+const LoginSign = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [newAccount,setNewAccount]=useState(true);
+    const navigate = useNavigate();
     let submitBtn = useRef();
     
     const toggleAccount=()=>setNewAccount(prev=>!prev);
@@ -17,6 +23,19 @@ const LoginSign = (props) => {
         }else if(name==="password"){
             setPassword(value);
         }
+    }
+
+    const socialLogin=async(event)=>{
+        const {target:{name}}=event;
+        let provider;
+        if(name==="Google"){provider = new GoogleAuthProvider();}
+        else if(name==="Github") {provider = new GithubAuthProvider();};
+        await signInWithPopup(auth,provider)
+        .then()
+        .catch((error)=>{
+            console.log(error.message);
+            navigate('/');
+        })
     }
 
     const onSubmit =async(event)=>{
@@ -53,6 +72,10 @@ const LoginSign = (props) => {
             <input type="submit" ref={submitBtn} value={newAccount ? `Create Account` : `SignIn`}/>
         </form>
             <button onClick={toggleAccount}>{newAccount ? `SignIn` : `Create Account`}</button>
+            <div className="social-login">
+                <button onClick={socialLogin}name="Google">Google Login</button>
+                <button onClick={socialLogin} name="Github">Githb Login</button>
+            </div>
         </div>
     )
 };
