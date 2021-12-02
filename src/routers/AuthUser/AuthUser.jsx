@@ -1,9 +1,10 @@
 import React from 'react';
+import LoginSign from '../../components/LoginSign/LoginSign';
 
 const AuthUser = (props) => {
 
     return(
-        <h1>Auth</h1>
+        <LoginSign />
     )
 };
 
