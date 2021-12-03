@@ -1,0 +1,54 @@
+.container {
+  display: inline-block;
+  border: 1px solid black;
+  text-align: center;
+}
+.loginform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input {
+  display: block;
+}
+.inputEmail,
+.inputPassword {
+  width: 224px;
+  height: 32px;
+  background: transparent;
+  border: 2px solid #546de5;
+  margin-top: 10px;
+  border-radius: 15px;
+  list-style: none;
+  color: aliceblue;
+  padding: 5px;
+}
+.inputEmail:focus,
+.inputPassword:focus {
+  outline: none;
+}
+.submitBtn {
+  width: 200px;
+  height: 30px;
+  border-radius: 15px;
+  margin-top: 15px;
+  border: none;
+  outline: none;
+  background-color: #546de5;
+  font-size: 15px;
+  font-weight: 600;
+  color: aliceblue;
+  cursor: pointer;
+}
+.toggleBtn {
+  color: #546de5;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #546de5;
+  cursor: pointer;
+  margin: 8px;
+}
+.socialLogin {
+  margin: 10px;
+  width: 100px;
+}

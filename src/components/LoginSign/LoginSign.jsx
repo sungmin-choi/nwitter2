@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { auth } from '../../fbase';
 import { useNavigate } from 'react-router';  
+import styles from './LoginSign.module.css';
 import { createUserWithEmailAndPassword,
          signInWithEmailAndPassword,
          GoogleAuthProvider,
@@ -65,16 +66,16 @@ const LoginSign = () => {
     }
 
     return(
-        <div className="container">
-        <form onSubmit={onSubmit}>
-            <input onChange={onChange} name="email" type="email" placeholder="input your email"/>
-            <input onChange={onChange} name="password" type="password" placeholder="input your password"/>
-            <input type="submit" ref={submitBtn} value={newAccount ? `Create Account` : `SignIn`}/>
+        <div className={styles.container}>
+        <form className={styles.loginform} onSubmit={onSubmit}>
+            <input className={styles.input,styles.inputEmail} onChange={onChange} name="email" type="email" placeholder="input your email"/>
+            <input className={styles.input,styles.inputPassword}onChange={onChange} name="password" type="password" placeholder="input your password"/>
+            <input className={styles.input,styles.submitBtn}type="submit" ref={submitBtn} value={newAccount ? `Create Account` : `SignIn`}/>
         </form>
-            <button onClick={toggleAccount}>{newAccount ? `SignIn` : `Create Account`}</button>
+            <button className={styles.toggleBtn} onClick={toggleAccount}>{newAccount ? `SignIn` : `Create Account`}</button>
             <div className="social-login">
-                <button onClick={socialLogin}name="Google">Google Login</button>
-                <button onClick={socialLogin} name="Github">Githb Login</button>
+                <button className={styles.socialLogin} onClick={socialLogin}name="Google">Google Login</button>
+                <button className={styles.socialLogin} onClick={socialLogin} name="Github">Githb Login</button>
             </div>
         </div>
     )

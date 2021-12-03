@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "./index.module.css";
+import styles from "./index.module.css";
 import App from "./components/App"
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App className={styles.App} />
   </React.StrictMode>,
   document.getElementById('root')
 );

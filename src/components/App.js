@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AppRouter from './Router';
+import styles from './App.module.css';
 import {auth} from "../fbase";
 import {onAuthStateChanged } from "firebase/auth";
 function App() {
@@ -22,7 +23,7 @@ useEffect(()=>{
   },[]);
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       {init ? <AppRouter userObj={userObj} islogined={islogined}/> :'initialized'}
     </div>
   );
