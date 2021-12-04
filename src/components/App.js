@@ -12,7 +12,12 @@ useEffect(()=>{
     onAuthStateChanged(auth,(user)=>{
       if(user){
         setIslogined(true);
-        setUserObj(user);
+        const userObj={
+          email:user.email,
+          uid:user.uid,
+          createAt: Date.now(),
+        }
+        setUserObj(userObj);
       }
       else{
         setIslogined(false);
