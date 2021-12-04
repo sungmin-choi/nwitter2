@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Nweet.module.css';
-const Nweet = (props) => {
+const Nweet = ({nweet,userObj}) => {
     return (
-        <h1>Nweet</h1>
+        <div className="">
+            <p>{nweet.nweet}</p>
+            {userObj && <div>
+                <button>Delete</button>
+                <button>Edit</button>
+                </div>}
+        </div>
     )
 };
 

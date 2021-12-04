@@ -24,10 +24,10 @@ const Home = ({userObj}) => {
     return(
         <div className={styles.container}>
         <form onSubmit={onSubmit}>
-            <input onChange={onChange} value={nweet} type="text" placeholder="input your mind" />
+            <input onChange={onChange} value={nweet} type="text" placeholder="input your mind" maxLength={120} />
             <input type="submit" value="Nweet" />
         </form>
-        <Nweets/>
+        <Nweets userObj={userObj}/>
         </div>
     )
 };

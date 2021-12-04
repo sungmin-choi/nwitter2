@@ -26,7 +26,7 @@ useEffect(()=>{
       setInit(true);
     });
   },[]);
-
+  
   return (
     <div className={styles.App}>
       {init ? <AppRouter userObj={userObj} islogined={islogined}/> :'initialized'}
