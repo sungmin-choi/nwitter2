@@ -19,7 +19,6 @@ const Nweets = ({userObj}) => {
             NweetsArray.sort((a,b)=>{
                 return b["createAt"]-a["createAt"];
             })
-            console.log("hello");
             setNweets(NweetsArray);
         });
     
