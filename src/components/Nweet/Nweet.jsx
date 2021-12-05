@@ -1,8 +1,12 @@
-import React from 'react';
-import { doc,deleteDoc } from "firebase/firestore";
+import React, { useState } from 'react';
+import { doc,deleteDoc ,setDoc} from "firebase/firestore";
 import { db } from '../../fbase';
 import styles from './Nweet.module.css';
 const Nweet = ({nweet,userObj}) => {
+    const [isEdit,setIsEdit]=useState(false);
+    const [editNweet,setEditNweet] = useState(nweet.nweet);
+    const toggleEdit = ()=>setIsEdit(prev=>!prev);
+
     const onDelete=async(event)=>{
         const confirm = window.confirm("are u sure delete?");
         if(confirm){
@@ -11,13 +15,43 @@ const Nweet = ({nweet,userObj}) => {
 
         }
     }
+
+    const onEditNweet =async()=>{
+        if(editNweet){
+            const confirm = window.confirm("are u sure Edit?");
+            if(confirm){
+                await setDoc(doc(db, "Nweets", `${nweet.id}`), {
+                    ...nweet,
+                    nweet:editNweet
+                  });
+                  toggleEdit();
+            }
+        }
+        
+
+    }
+
+    const onChangeEdit = (event)=>{
+        const {target:{value}} = event;
+        setEditNweet(value);
+    }
+
     return (
         <div className="">
-            <p>{nweet.nweet}</p>
-            {userObj && <div>
+            {userObj ? (!isEdit ?(<>
+                <p>{nweet.nweet}</p>
+                <div>
                 <button onClick={onDelete} value={nweet.id}>Delete</button>
-                <button>Edit</button>
-                </div>}
+                <button onClick={toggleEdit}>Edit</button>
+                </div>
+                </>):(
+                <>
+                <input onChange={onChangeEdit} type="text" value={editNweet} placeholder="input Edit Nweet" />
+                <button onClick={onEditNweet}>Edit Nweet</button>
+                <button onClick={toggleEdit}>Cancel</button>
+                </>)):
+                (<p>{nweet.nweet}</p>)}
+           
         </div>
     )
 };
