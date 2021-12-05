@@ -12,11 +12,16 @@ useEffect(()=>{
     onAuthStateChanged(auth,(user)=>{
       if(user){
         setIslogined(true);
+        if(user.displayName==="null"){
+          user.displayName="newuser";
+        }
         const userObj={
+          displayName:user.displayName,
           email:user.email,
           uid:user.uid,
           createAt: Date.now(),
         }
+        console.log(userObj);
         setUserObj(userObj);
       }
       else{
@@ -26,10 +31,19 @@ useEffect(()=>{
       setInit(true);
     });
   },[]);
+
+  const refreshUser = ()=>{
+    const refreshUser=auth.currentUser;
+    const newUserObj={
+      ...userObj,
+      displayName:refreshUser.displayName
+    }
+    setUserObj(newUserObj);
+  }
   
   return (
     <div className={styles.App}>
-      {init ? <AppRouter userObj={userObj} islogined={islogined}/> :'initialized'}
+      {init ? <AppRouter refreshUser={refreshUser} userObj={userObj} islogined={islogined}/> :'initialized'}
     </div>
   );
 }
