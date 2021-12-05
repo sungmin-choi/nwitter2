@@ -15,7 +15,8 @@ const Home = ({userObj}) => {
         event.preventDefault();
         const nweetObj={
             ...userObj,
-            nweet
+            nweet,
+            createAt: Date.now(),
         }
         await addDoc(collection(db, "Nweets"),nweetObj);
         setNweet("");
@@ -25,6 +26,7 @@ const Home = ({userObj}) => {
         <div className={styles.container}>
         <form onSubmit={onSubmit}>
             <input onChange={onChange} value={nweet} type="text" placeholder="input your mind" maxLength={120} />
+            <input type="file"  accept="image/*"/>
             <input type="submit" value="Nweet" />
         </form>
         <Nweets userObj={userObj}/>

@@ -11,18 +11,13 @@ function App() {
 useEffect(()=>{
     onAuthStateChanged(auth,(user)=>{
       if(user){
-        setIslogined(true);
-        if(user.displayName==="null"){
-          user.displayName="newuser";
-        }
         const userObj={
-          displayName:user.displayName,
+          displayName:user.displayName===null? "newUser" :user.displayName,
           email:user.email,
-          uid:user.uid,
-          createAt: Date.now(),
+          uid:user.uid
         }
-        console.log(userObj);
         setUserObj(userObj);
+        setIslogined(true);
       }
       else{
         setIslogined(false);
