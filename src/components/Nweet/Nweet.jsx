@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { doc,deleteDoc ,setDoc} from "firebase/firestore";
-import { db } from '../../fbase';
+import { ref, deleteObject } from "firebase/storage";
+import { db ,storage} from '../../fbase';
 import styles from './Nweet.module.css';
 const Nweet = ({nweet,userObj}) => {
     const [isEdit,setIsEdit]=useState(false);
@@ -11,6 +12,10 @@ const Nweet = ({nweet,userObj}) => {
         const confirm = window.confirm("are u sure delete?");
         if(confirm){
             const {target:{value}} = event;
+            if(nweet.imageUrl){
+            const desertRef = ref(storage, nweet.imageUrl);
+            await deleteObject(desertRef);
+            }
             await deleteDoc(doc(db, "Nweets", `${value}`));
 
         }
@@ -40,6 +45,7 @@ const Nweet = ({nweet,userObj}) => {
         <div className="">
             {userObj ? (!isEdit ?(<>
                 <p>{nweet.nweet}</p>
+                {nweet.attachmentUrl &&<img src={nweet.attachmentUrl} alt="attachment" width="50px" height="50px" />}
                 <div>
                 <button onClick={onDelete} value={nweet.id}>Delete</button>
                 <button onClick={toggleEdit}>Edit</button>
